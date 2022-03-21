@@ -1,6 +1,3 @@
-import imp
-
-
 import time
 import pandas as pd
 import numpy as np
@@ -29,7 +26,7 @@ def get_filters():
     filtB = True
     month, day = 'all','all'
     while city_name:
-        city = input('Would you like to see data for Chicago, New York, or Washington?')
+        city = input('Would you like to see data for Chicago, New York, or Washington?').lower()
 
         if city in keys:
             city_name = False
@@ -255,6 +252,18 @@ def user_stats(df,city):
     print('-'*40)
 
 
+def row_data(df):
+    for x in range(5):
+        print(df.iloc[x])
+        print('\n\n')
+    boreB = True
+    while boreB:
+        more = input('Would you like to see more ?').lower()
+        if more == 'yes' or more == 'no':
+            boreB = False   
+    if more ==  'yes':          
+        row_data(df)    
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -264,6 +273,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df, city)
+        row_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
